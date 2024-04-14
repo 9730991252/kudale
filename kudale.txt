@@ -1,0 +1,29 @@
+142.93.213.54
+
+%%%%%%% git clone %%%%%%%%%%%
+
+
+********** Create Virtual env *****
+
+virtualenv venv
+
+
+********** Activate Virtual env ****
+
+source venv/bin/activate
+
+
+
+***** install django ******
+
+pip install django
+
+
+******** Install Gunicorn ******
+ 
+pip install gunicorn
+
+
+*********** Deactivate Virtualenv *****
+
+deactivate
