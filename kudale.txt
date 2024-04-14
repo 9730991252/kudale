@@ -27,3 +27,79 @@ pip install gunicorn
 *********** Deactivate Virtualenv *****
 
 deactivate
+
+
+************ Create System Socket File for Gunicorn *******
+
+Example:- sudo nano /etc/systemd/system/crenta.in.gunicorn.socket
+
+cd  /etc/systemd/system/
+
+sudo nano kudale.com.gunicorn.socket
+
+
+
+[Unit]
+Description=kudale.com.gunicorn socket
+
+[Socket]
+ListenStream=/run/kudale.com.gunicorn.sock
+
+[Install]
+WantedBy=sockets.target
+
+
+
+************** Create System Service File for Gunicorn ******
+Syntax:- sudo nano /etc/systemd/system/your_domain.gunicorn.service
+Example:- sudo nano /etc/systemd/system/narayaniorder.com.gunicorn.service
+
+cd  /etc/systemd/system/
+
+sudo nano kudale.com.gunicorn.service
+
+
+[Unit]
+Description=kudale.com.gunicorn daemon
+Requires=kudale.com.gunicorn.socket
+After=network.target
+
+[Service]
+User=root
+Group=root
+WorkingDirectory=/root/kudale
+ExecStart=/root/kudale/venv/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --bind unix:/run/kudale.com.gunicorn.sock \
+          kudale.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+----------------------------------------------------------------
+sudo systemctl start kudale.com.gunicorn.socket
+
+sudo systemctl start kudale.com.gunicorn.service
+
+-----------------------------------------------------------------
+
+
+sudo systemctl enable kudale.com.gunicorn.socket
+
+sudo systemctl enable kudale.com.gunicorn.service
+
+-----------------------------------------------------------------------
+
+sudo systemctl status kudale.com.gunicorn.socket
+
+sudo systemctl status kudale.com.gunicorn.service
+
+-------------------------------------------
+
+
+sudo systemctl daemon-reload
+
+sudo systemctl restart kudale.com.gunicorn
+
+--------------------------------
