@@ -1,0 +1,198 @@
+{% extends 'home/base.html' %}
+{% block content %}
+{% include 'include/index_navbar.html' %}
+<style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+    width: 100vw;
+    background-image: url("image/pexels-photo-440731.jpeg");
+    background-size: cover;
+}
+.welcome{
+    color: white;
+    text-align: center;
+    margin-top: 30px;
+    font-size: 18px;
+}
+
+.today_box{
+    background-color: aqua;
+    width: 300px;
+    height: 225px;
+    border-radius: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
+    box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+
+}
+.all_box{
+    margin-top: 20px;
+    background-color: rgb(171, 210, 255);
+    width: 300px;
+    height: 250px;
+    border-radius: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
+    box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+
+}
+.today_headline{
+    text-align: center;
+    font-size: 18px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-weight: 1000;
+    margin-top: 0px;
+    
+    
+}
+.all_headline{
+    text-align: center;
+    font-size: 18px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-weight: 1000;
+    
+    
+}
+.today_head{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr ;
+    padding: 5px;
+    font-weight: 1000;
+    border-top: solid 1px black;
+    border-bottom: solid 1px black;
+    background-color: rgb(255, 241, 241);
+}
+.all_head{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr ;
+    padding: 5px;
+    font-weight: 1000;
+    border-top: solid 1px black;
+    border-bottom: solid 1px black;
+    background-color: rgb(255, 187, 187);
+}
+
+
+.today_list_1{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr;
+    padding: 5px; 
+    border-bottom: solid 1px black;
+    background-color: rgb(255, 119, 119);
+}
+.all_list_1{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr ;
+    padding: 5px; 
+    border-bottom: solid 1px black;
+    background-color: rgb(119, 255, 219);
+}
+.all_list_2{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr ;
+    padding: 5px; 
+    border-bottom: solid 1px black;
+    background-color: rgb(211, 247, 145);
+}
+.all_list_3{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr  ;
+    padding: 5px; 
+    border-bottom: solid 1px black;
+    background-color: rgb(255, 119, 198);
+}
+.today_list_2{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr ;
+    padding: 5px; 
+    border-bottom: solid 1px black;
+    background-color: rgb(55, 172, 255);
+}
+.today_list_3{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr ;
+    padding: 5px; 
+    border-bottom: solid 1px black;
+    background-color: rgb(255, 69, 224);
+}
+
+</style>
+
+<div>
+    <h6 class="welcome">कुदळे ग्रुप मध्ये आपले सहर्ष स्वागत</h6>
+</div>
+
+<div class="today_box">
+    <h6 class="today_headline">आजचे ३ उत्कृष्ट तोडणीदार </h6>
+    <div class="today_head">
+        <div>नंबर</div>
+        <div>नाव</div>
+        <div>टनेज</div>
+        <div>तारीख</div>
+    </div>
+    <div class="today_list_1">
+        <div>1</div>
+        <div>Sunil Kale </div>
+        <div>1300</div>
+        <div>14/04/204</div>
+    </div>
+    <div class="today_list_2">
+        <div>2</div>
+        <div>Sunil Kale </div>
+        <div>1300</div>
+        <div>14/04/204</div>
+    </div>
+    <div class="today_list_3">
+        <div>3</div>
+        <div>Sunil Kale </div>
+        <div>1300</div>
+        <div>14/04/204</div>
+    </div>
+<div class="mt-1">
+    <h6 class="text-center">सर्वांचे हार्दिक अभिनंदन </h6>
+</div>
+
+</div>
+<div class="all_box">
+    <h6 class="all_headline">सुरवातीपासून आज पर्यंतचे ३ उत्कृष्ट तोडणीदार </h6>
+    <div class="all_head">
+        <div>नंबर</div>
+        <div>नाव</div>
+        <div>टनेज</div>
+       
+    </div>
+    <div class="all_list_1">
+        <div>1</div>
+        <div>Sunil Kale </div>
+        <div>1300</div>
+        
+    </div>
+    <div class="all_list_2">
+        <div>2</div>
+        <div>Sunil Kale </div>
+        <div>1300</div>
+        
+    </div>
+    <div class="all_list_3">
+        <div>3</div>
+        <div>Sunil Kale </div>
+        <div>1300</div>
+      
+    </div>
+<div class="mt-1">
+    <h6 class="text-center">सर्वांचे हार्दिक अभिनंदन </h6>
+</div>
+
+</div>
+
+
+{% endblock content %}
