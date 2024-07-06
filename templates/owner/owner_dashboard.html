@@ -157,7 +157,7 @@
             <div style="display: flex;gap: 10px;justify-content: start;padding: 10px;border-bottom: 1px solid rgb(86, 255, 71);">
                 <div>{{forloop.counter}}</div>
                 <div>{{m.name}}</div>
-                <div>Total Taneg {% mukadam_taneg m.id %}</div>
+                <div>T {% mukadam_taneg m.id %}</div>
             </div>
         {% endfor %}
     </div>
@@ -171,7 +171,7 @@
                 <div>{{forloop.counter}}</div>
                 <div>{{v.owner_name}}</div>
                 <div>{{v.vehicle_number}}</div>
-                <div>Total Taneg {% vehicle_taneg v.id %}</div>
+                <div>T {% vehicle_taneg v.id %}</div>
             </div>
         {% endfor %}
     </div>
@@ -184,7 +184,7 @@
         <div style="display: flex;gap: 10px;justify-content: start;padding: 10px;border-bottom: 1px solid rgb(255, 175, 71);">
             <div>{{forloop.counter}}</div>
             <div>{{k.name}}</div>
-            <div>{% karkhana_taneg k.id %}</div>
+            <div>T {% karkhana_taneg k.id %}</div>
         </div>
         {% endfor %}
     </div>
