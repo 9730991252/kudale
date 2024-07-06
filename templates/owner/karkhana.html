@@ -1,0 +1,79 @@
+{% extends 'home/base.html' %}
+{% block head %}
+{% endblock head %}
+{% block content %}
+{% include 'include/owner_menu.html' %}
+
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .ka_box{
+        background-color: rgb(255, 223, 180);
+        border: 2px solid rgb(255, 187, 78);
+        border-radius: 10px;
+        padding: 10px;
+        font-weight: 600;
+        text-align: center;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+</style>
+<div class="container">{% include 'include/alert.html' %}</div>
+
+<!-- Button trigger modal -->
+<div class="container">
+   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+       Add Karkhana
+   </button>
+</div>
+
+
+
+
+{% for k in k %}
+    <div class="ka_box">
+        <div class="name">{{k.name}}</div>
+        <div class="add">{{k.address}}</div>
+    </div><br>
+{% endfor %}
+
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Add Karkhana</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+                
+            <form method="POST">{% csrf_token %}
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Name</label>
+                  <input type="text" name="name" placeholder="Name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                </div>
+
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Address</label>
+                  <input type="text" name="address" placeholder="Address" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                </div>
+                
+                <button type="submit" name="Add_Karkhana" class="btn btn-primary">Add</button>
+              </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock content %}

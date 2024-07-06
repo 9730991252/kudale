@@ -1,0 +1,19 @@
+<style>
+    .btn{
+        margin-bottom: 10px;
+    }
+    .menu_box{
+        display: flex;
+        gap: 10px;
+        overflow: scroll;
+
+    }
+    </style>
+    
+    <div class="btn menu_box">
+        <a  href="/owner/owner_dashbord/" class=" {% if request.path == '/owner/owner_dashbord/' %}btn btn-warning{% else %}btn btn-primary{% endif %}">Home</a>
+        <a  href="/owner/add_mukadam/" class=" {% if request.path == '/owner/add_mukadam/' %}btn btn-warning{% else %}btn btn-primary{% endif %}">Mukadam</a>
+        <a  href="/owner/taneg/" class=" {% if request.path == '/owner/taneg/' %}btn btn-warning{% else %}btn btn-primary{% endif %}">Taneg</a>
+        <a  href="/owner/karkhana/" class=" {% if request.path == '/owner/karkhana/' %}btn btn-warning{% else %}btn btn-primary{% endif %}">Karkhana</a>
+        <a class="btn btn-danger" href="/logout/">Logout</a>
+    </div>

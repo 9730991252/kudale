@@ -1,0 +1,122 @@
+{% extends 'home/base.html' %}
+{% block head %}
+{% endblock head %}
+{% block content %}
+
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .body{
+        height: 100vh;
+        width: 100vw;
+        background-image: url("image/pexels-photo-440731.jpeg");
+        background-size: cover;
+    }
+    .welcome{
+    color: white;
+    text-align: center;
+    padding-top: 30px;
+    font-size: 18px;
+    font-weight: 700;
+    font-style: italic;
+}
+.tp5{
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        margin: 10px;
+        border-radius: 10px;
+    }
+    .tp5l{
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        font-weight: 600;
+        padding: 5px;
+        background-color: rgb(240, 240, 240);
+    }
+    .tpl{
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        font-weight: 600;
+        padding: 5px;
+        background-color: rgb(240, 240, 240);
+        margin-top: -14px;
+    }
+
+</style>
+
+<div class="body">
+ 
+    <div>
+        <h6 class="welcome">कुदळे ग्रुप मध्ये आपले सहर्ष स्वागत</h6>
+    </div>
+    
+    <div class="login_btn text-center mb-2">
+        <a href="/login/" class="btn btn-primary">login</a>
+    </div>
+
+{% if m %}
+
+<div class="tp5">
+    <div class="text-center tp5l">
+        <label>सुरवातीपासून आज पर्यंतचे <br> 5 उत्कृष्ट तोडणीदार</label><br>
+    </div>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Name</th>
+            <th scope="col">Taneg</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for m in m %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{m.mukadam__name}}</td>
+                    <td>{{m.top}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+      <div class="text-center tpl">
+          <Label>Congratulations to all</Label>
+    </div>
+
+</div>
+
+
+
+<div class="tp5">
+    <div class="text-center tp5l">
+        <label>आजचे 5 उत्कृष्ट तोडणीदार</label><br>
+    </div>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Name</th>
+            <th scope="col">Taneg</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for m in tm %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{m.mukadam__name}}</td>
+                    <td>{{m.top}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+      <div class="text-center tpl">
+          <Label>Congratulations to all</Label>
+    </div>
+</div>
+{% endif %}  
+    
+    
+</div>
+
+{% endblock content %}

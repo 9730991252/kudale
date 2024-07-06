@@ -1,0 +1,100 @@
+{% extends 'home/base.html' %}
+{% block head %}
+{% endblock head %}
+{% block content %}
+{% include 'include/owner_menu.html' %}
+
+<style>
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .ta_box{
+    background-color: rgb(255, 215, 208);
+    border: 1px solid rgb(255, 110, 84);
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: center;
+    font-weight: 600;
+    .mu_name{
+      font-size: 18px;
+      font-weight: 700;
+    }
+  }
+</style>
+
+<!-- Button trigger modal -->
+<div class="container">
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Add Taneg
+  </button>
+</div>
+<div class="container">{% include 'include/alert.html' %}</div>
+
+
+
+<div class="text-center"><h6>All Entry</h6></div>
+{% for t in t %}
+  <div class="ta_box">
+    <div class="mu_name">{{t.mukadam.name}}</div>
+    <div class="ka_name">{{t.karkhana.name}}</div>
+    <div style="display: flex; justify-content: center; gap: 10px;">
+      <div>{{t.date}}</div>
+      <div>Taneg {{t.taneg}}</div>
+    </div>
+  </div><br>
+{% endfor %}
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Add Taneg</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+                
+            <form method="POST">{% csrf_token %}
+                <div class="mb-3">
+                  <select  class="form-select" name="mukadam" aria-label="Default select example" required >
+                    <option value="">Select Mukadam</option>
+                    {% for m in m %}
+                      <option value="{{m.id}}">{{m.name}}</option>
+                    {% endfor %}
+                </select>
+                </div>
+                <div class="mb-3">
+                  <select  class="form-select" name="karkhana" aria-label="Default select example" required >
+                    <option value="">Select Karkhana</option>
+                    {% for k in k %}
+                      <option value="{{k.id}}">{{k.name}}</option>
+                    {% endfor %}
+                </select>
+                </div>
+
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Date</label>
+                  <input type="date" name="date" class="form-control" id="exampleInputEmail1" required>
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Taneg</label>
+                  <input type="number" name="taneg" class="form-control" id="exampleInputEmail1" required>
+                </div>
+                <button type="submit" name="Add_Taneg" class="btn btn-primary">Add</button>
+              </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock content %}
