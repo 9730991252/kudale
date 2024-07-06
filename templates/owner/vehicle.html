@@ -1,0 +1,101 @@
+{% extends 'home/base.html' %}
+{% block head %}
+{% endblock head %}
+{% block content %}
+{% include 'include/owner_menu.html' %}
+
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .m_list{
+        background-color: rgba(255, 230, 173, 0.853);
+        margin-bottom: 10px;
+        text-align: center;
+        padding: 10px;
+        font-weight: 500;
+        margin-left: 5px;
+        margin-right: 10px;
+        border-radius: 10px;
+        .mp{
+            display: flex;
+            justify-content: space-between;
+            
+        }
+    }
+</style>
+
+<div class="container">{% include 'include/alert.html' %}</div>
+
+
+
+<!-- Button trigger modal -->
+ <br>
+ <div class="container">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Add New vehicle 
+    </button>
+</div>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Add vehicle</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+                
+            <form method="POST">{% csrf_token %}
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Owner Name</label>
+                  <input type="text" name="owner_name" placeholder="Owner Name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                </div>
+
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Vehicle Number</label>
+                  <input type="text" name="vehicle_number" oninput="remove_space()" placeholder="Vehicle Number" class="form-control" id="remove_space_id" aria-describedby="emailHelp" required>
+                </div>
+                
+                <button type="submit" name="Add_vehicle" class="btn btn-primary">Add</button>
+              </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% for v in v %}
+    <div class="m_list">
+        <div>{{v.owner_name}}</div>  
+        <div class="mp">
+            <div> {{v.vehicle_number}}</div>
+            <form class="" method="POST">{% csrf_token %}
+                {% if v.status == 1 %}
+                    <button class="btn btn-success" type="submit" name="Active">Active<input type="hidden" name="id" value="{{v.id}}"></button>
+                {% else %}
+                    <button class="btn btn-danger" type="submit" name="Deactive">Deactive<input type="hidden" name="id" value="{{v.id}}"></button>
+                {% endif %}
+            </form>
+        </div> 
+    </div>
+{% endfor %}
+
+
+<script>
+  function remove_space(){
+    words = document.getElementById('remove_space_id').value;
+    let result = words.toUpperCase();
+    let result2 = result.replace(/\s/g, "")
+    document.getElementById('remove_space_id').value=result2;
+  }
+</script>
+
+
+{% endblock content %}

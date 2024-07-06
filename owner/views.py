@@ -14,10 +14,12 @@ def owner_dashbord(request):
         context={
             'total_mukadam':Mukadam.objects.all().count(),
             'total_karkhana':Karkhana.objects.all().count(),
+            'total_vehicle':Vehicle.objects.all().count(),
             'm':m,
             'tm':tm,
             'mukadam':Mukadam.objects.all(),
-            'karkhana':Karkhana.objects.all()
+            'karkhana':Karkhana.objects.all(),
+            'vehicle':Vehicle.objects.all(),
                 }
         return render(request,'owner/owner_dashboard.html',context)
     else:
@@ -71,11 +73,13 @@ def taneg(request):
         context={}
         if 'Add_Taneg'in request.POST:
             mukadam = request.POST.get('mukadam')
+            vehicle = request.POST.get('vehicle')
             karkhana = request.POST.get('karkhana')
             date = request.POST.get('date')
             taneg = request.POST.get('taneg')
             Taneg(
                 mukadam_id=mukadam,
+                vehicle_id=vehicle,
                 karkhana_id=karkhana,
                 added_by='admin',
                 taneg=taneg,
@@ -85,7 +89,8 @@ def taneg(request):
             return redirect('/owner/taneg/')
 
         context={
-            'm':Mukadam.objects.all(),
+            'm':Mukadam.objects.filter(status=1),
+            'v':Vehicle.objects.filter(status=1),
             'k':Karkhana.objects.all(),
             't':Taneg.objects.all()
             }
@@ -113,3 +118,44 @@ def karkhana(request):
         return render(request,'owner/karkhana.html',context)
     else:
         return redirect('/login/')
+    
+
+
+def vehicle(request):
+    if request.session.has_key('owner_mobile'):
+        owner_mobile = request.session['owner_mobile']
+        context={}
+        if 'Add_vehicle'in request.POST:
+            owner_name = request.POST.get('owner_name')
+            vehicle_number = request.POST.get('vehicle_number')
+            print(vehicle_number)
+            if Vehicle.objects.filter(vehicle_number=vehicle_number).exists():
+                messages.warning(request,"Vehicle Number Allready Exits")
+                return redirect('/owner/add_mukadam/')
+            else:
+                Vehicle(
+                    owner_name=owner_name,
+                    vehicle_number=vehicle_number,
+                    status=1
+                    ).save()
+                messages.success(request,"Vehicle Added Succesfully")
+                return redirect('/owner/vehicle/')
+        if 'Active'in request.POST:
+            vid =request.POST.get('id')
+            v = Vehicle.objects.get(id=vid)
+            v.status = 0
+            v.save()
+            return redirect('/owner/vehicle/')
+        if 'Deactive'in request.POST:
+            vid =request.POST.get('id')
+            v = Vehicle.objects.get(id=vid)
+            v.status = 1
+            v.save()
+            return redirect('/owner/vehicle/')
+        context={
+            'v':Vehicle.objects.all()
+            }
+        return render(request,'owner/vehicle.html',context)
+    else:
+        return redirect('/login/')
+    

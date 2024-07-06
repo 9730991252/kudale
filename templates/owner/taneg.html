@@ -41,6 +41,10 @@
   <div class="ta_box">
     <div class="mu_name">{{t.mukadam.name}}</div>
     <div class="ka_name">{{t.karkhana.name}}</div>
+    <div  style="display: flex; justify-content: center; gap: 10px;">
+      <div>{{t.vehicle.owner_name}}</div>
+      <div>{{t.vehicle.vehicle_number}}</div>
+    </div>
     <div style="display: flex; justify-content: center; gap: 10px;">
       <div>{{t.date}}</div>
       <div>Taneg {{t.taneg}}</div>
@@ -69,6 +73,14 @@
                 </select>
                 </div>
                 <div class="mb-3">
+                  <select  class="form-select" name="vehicle" aria-label="Default select example" required >
+                    <option value="">Select Vehicle</option>
+                    {% for v in v %}
+                      <option value="{{v.id}}">{{v.owner_name}} {{v.vehicle_number}}</option>
+                    {% endfor %}
+                </select>
+                </div>
+                <div class="mb-3">
                   <select  class="form-select" name="karkhana" aria-label="Default select example" required >
                     <option value="">Select Karkhana</option>
                     {% for k in k %}
@@ -83,7 +95,7 @@
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">Taneg</label>
-                  <input type="number" name="taneg" class="form-control" id="exampleInputEmail1" required>
+                  <input step="any"  type="number" name="taneg" class="form-control" id="exampleInputEmail1" required>
                 </div>
                 <button type="submit" name="Add_Taneg" class="btn btn-primary">Add</button>
               </form>

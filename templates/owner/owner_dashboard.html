@@ -86,7 +86,8 @@
 
 </style>
 
-<div class="tm">Total Mukadam {{total_mukadam}}</div>
+<div class="tk">Total Mukadam {{total_mukadam}}</div>
+<div class="tm mt-2">Total Vehicle {{total_vehicle}}</div>
 <div class="tk mt-2">Total Karkhana {{total_karkhana}}</div>
 <div class="tm mt-2">Total Taneg {% total_taneg %}</div>
 <div class="tk mt-2">Todays Total Taneg {% todays_taneg %}</div>
@@ -149,7 +150,7 @@
 </div>
 
 
-<div class="all_mukadam">
+<div class="all_karkhna">
     <Label>All Mukadam</Label>
     <div>
         {% for m in mukadam %}
@@ -162,6 +163,19 @@
     </div>
 </div>
 
+<div class="all_mukadam">
+    <Label>All Vehicle</Label>
+    <div>
+        {% for v in vehicle %}
+            <div style="display: flex;gap: 10px;justify-content: start;padding: 10px;border-bottom: 1px solid rgb(86, 255, 71);">
+                <div>{{forloop.counter}}</div>
+                <div>{{v.owner_name}}</div>
+                <div>{{v.vehicle_number}}</div>
+                <div>Total Taneg {% vehicle_taneg v.id %}</div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 
 <div class="all_karkhna">
     <Label>All karkhana</Label>

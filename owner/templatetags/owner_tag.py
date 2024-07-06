@@ -24,6 +24,12 @@ def mukadam_taneg(id):
     return todays_taneg
 
 @register.simple_tag
+def vehicle_taneg(id):
+    t = Taneg.objects.filter(vehicle_id=id).aggregate(Sum('taneg'))
+    todays_taneg = t['taneg__sum']
+    return todays_taneg
+
+@register.simple_tag
 def karkhana_taneg(id):
     t = Taneg.objects.filter(karkhana_id=id).aggregate(Sum('taneg'))
     todays_taneg = t['taneg__sum']
