@@ -5,7 +5,7 @@ from django.db.models import Sum
 from datetime import date
 # Create your views here.
 def index(request):
-    Taneg.objects.all().delete()
+    #Taneg.objects.all().delete()
     #Mukadam.objects.all().delete()
     #Karkhana.objects.all().delete()
     m = Taneg.objects.values('mukadam_id','mukadam__name').annotate(top = Sum('taneg')).order_by('-top')[0:5]
