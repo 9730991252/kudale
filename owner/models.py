@@ -22,7 +22,7 @@ class Vehicle(models.Model):
 
 class Taneg(models.Model):
     mukadam = models.ForeignKey(Mukadam,on_delete=models.PROTECT,default=True)
-    vehicle = models.ForeignKey(Vehicle,on_delete=models.PROTECT)
+    vehicle = models.ForeignKey(Vehicle,on_delete=models.PROTECT,null=True)
     karkhana = models.ForeignKey(Karkhana,on_delete=models.PROTECT,default=True)
     added_by = models.CharField(max_length=100,null=True)
     taneg = models.FloatField(max_length=100)
