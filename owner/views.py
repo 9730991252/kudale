@@ -3,6 +3,7 @@ from .models import *
 from django.contrib import messages
 from django.db.models import Sum, Max
 from datetime import date
+from django.core.paginator import Paginator
 # Create your views here.
 def owner_dashbord(request):
     if request.session.has_key('owner_mobile'):
@@ -87,12 +88,19 @@ def taneg(request):
                 ).save()
             messages.success(request,"Taneg Add Succesfully")
             return redirect('/owner/taneg/')
-
+        if 'T_delete'in request.POST:
+            tid = request.POST.get('tid')
+            Taneg.objects.get(id=tid).delete()
+            return redirect('/owner/taneg/')
+        t = Taneg.objects.all().order_by('-date')
+        paginator = Paginator(t,20) 
+        page_number = request.GET.get('page')
+        t = paginator.get_page(page_number)
         context={
             'm':Mukadam.objects.filter(status=1),
             'v':Vehicle.objects.filter(status=1),
             'k':Karkhana.objects.all(),
-            't':Taneg.objects.all()
+            't':t,
             }
         return render(request,'owner/taneg.html',context)
     else:
@@ -175,7 +183,8 @@ def report(request):
             to_date = request.POST.get('to_date')
             mid = request.POST.get('mukadam')
             vid = request.POST.get('vehicle')
-            if mid == '' and vid == '':
+            kid = request.POST.get('karkhana')
+            if mid == '' and vid == '' and kid == '':
                 messages.warning(request,"Please select Mukadam or Vehicle anyone")
             if mid == '0':
                 result = Taneg.objects.filter(date__gte=from_date,date__lte=to_date).order_by('-date')
@@ -193,9 +202,18 @@ def report(request):
                 result = Taneg.objects.filter(date__gte=from_date,date__lte=to_date,vehicle_id=vid).order_by('-date')
                 total = result.aggregate(Sum('taneg'))
                 total = total['taneg__sum']
+            elif kid == '0':
+                result = Taneg.objects.filter(date__gte=from_date,date__lte=to_date).order_by('-date')
+                total = result.aggregate(Sum('taneg'))
+                total = total['taneg__sum']
+            elif kid:
+                result = Taneg.objects.filter(date__gte=from_date,date__lte=to_date,karkhana_id=kid).order_by('-date')
+                total = result.aggregate(Sum('taneg'))
+                total = total['taneg__sum']
         context={
             'm':Mukadam.objects.all(),
             'v':Vehicle.objects.all(),
+            'k':Karkhana.objects.all(),
             'from_date':from_date,
             'to_date':to_date,
             'result':result,

@@ -47,10 +47,42 @@
     </div>
     <div style="display: flex; justify-content: center; gap: 10px;">
       <div>{{t.date}}</div>
-      <div>Taneg {{t.taneg}}</div>
+      <div>Taneg {{t.taneg|floatformat:3}}</div>
     </div>
+    <form method="POST"> {% csrf_token %}
+      <input name="tid" type="hidden" value="{{t.id}}">
+      <button name="T_delete" class="btn btn-danger">Delete</button>
+    </form>
   </div><br>
 {% endfor %}
+
+
+
+
+<nav aria-label="...">
+  <ul class="pagination">
+    {% if t.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?page=1" tabindex="-1">First</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="?page={{t.previous_page_number}}" tabindex="-1">Previous</a>
+    </li>
+    {% endif %}
+
+    <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+    <li class="page-item"><a class="page-link" href="?page=2">2</a></li>
+    <li class="page-item"><a class="page-link" href="?page=3">3</a></li>
+
+    {% if t.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{t.next_page_number}}">Next</a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+
+
 
 
   <!-- Modal -->
