@@ -24,7 +24,7 @@ def owner_dashbord(request):
         return render(request,'owner/owner_dashboard.html',context)
     else:
         return redirect('/login/')
-    
+     
 
 def add_mukadam(request):
     if request.session.has_key('owner_mobile'):
@@ -159,3 +159,48 @@ def vehicle(request):
     else:
         return redirect('/login/')
     
+
+
+
+def report(request):
+    if request.session.has_key('owner_mobile'):
+        owner_mobile = request.session['owner_mobile']
+        context={}
+        from_date = ''
+        to_date = ''
+        result = ''
+        total = ''
+        if 'Search'in request.POST:
+            from_date = request.POST.get('from_date')
+            to_date = request.POST.get('to_date')
+            mid = request.POST.get('mukadam')
+            vid = request.POST.get('vehicle')
+            if mid == '' and vid == '':
+                messages.warning(request,"Please select Mukadam or Vehicle anyone")
+            if mid == '0':
+                result = Taneg.objects.filter(date__gte=from_date,date__lte=to_date).order_by('-date')
+                total = result.aggregate(Sum('taneg'))
+                total = total['taneg__sum']
+            elif mid:
+                result = Taneg.objects.filter(date__gte=from_date,date__lte=to_date,mukadam_id=mid).order_by('-date')
+                total = result.aggregate(Sum('taneg'))
+                total = total['taneg__sum']
+            elif vid == '0':
+                result = Taneg.objects.filter(date__gte=from_date,date__lte=to_date).order_by('-date')
+                total = result.aggregate(Sum('taneg'))
+                total = total['taneg__sum']
+            elif vid:
+                result = Taneg.objects.filter(date__gte=from_date,date__lte=to_date,vehicle_id=vid).order_by('-date')
+                total = result.aggregate(Sum('taneg'))
+                total = total['taneg__sum']
+        context={
+            'm':Mukadam.objects.all(),
+            'v':Vehicle.objects.all(),
+            'from_date':from_date,
+            'to_date':to_date,
+            'result':result,
+            'total':total,
+                }
+        return render(request,'owner/report.html',context)
+    else:
+        return redirect('/login/')

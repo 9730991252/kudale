@@ -1,0 +1,98 @@
+{% extends 'home/base.html' %}
+{% block head %}
+{% endblock head %}
+{% block content %}
+{% include 'include/owner_menu.html' %}
+
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .dis_flex{
+        display: flex;
+        gap: 10px;
+    }
+    .report_form{
+        padding: 5px;
+        gap: 5px;
+        input{
+            width: 80%;
+        }
+        select{
+            width: 70%;
+        }
+    }
+</style>
+
+
+
+<div class="report_form">
+    <form method="POST">{% csrf_token %}
+        <div class="dis_flex">
+            <div>
+                <label>From Date</label>
+                <input type="date" name="from_date" class="form-control" required>
+            </div>
+            <div>
+                <label>To Date</label>
+                <input type="date" name="to_date" class="form-control"required>
+            </div>
+        </div>
+        <br>
+        <div class="dis_flex">
+            <select class="form-select" name="mukadam" aria-label="Default select example">
+                <option value="" selected>Select Mukadam</option>
+                <option value="0">All</option>
+                {% for m in m %}
+                    <option value="{{m.id}}">{{m.name}}</option>
+                {% endfor %}
+            </select>
+            <select class="form-select" name="vehicle" aria-label="Default select example">
+                <option value="" selected>Select Vehicle</option>
+                <option value="0">All</option>
+                {% for v in v %}
+                    <option value="{{v.id}}">{{v.owner_name}}{{v.vehicle_number}}</option>
+                {% endfor %}
+            </select>
+        </div><br>
+        <div>{% include 'include/alert.html' %}</div>
+
+        <button name="Search" class="btn btn-success form-control">Search</button>
+    </form>
+</div>
+
+<div>
+    <div class="text-center"><h6>From {{from_date}} &nbsp&nbsp&nbsp&nbsp&nbsp To {{to_date}} &nbsp&nbsp&nbsp&nbsp Taneg {{total}}</h6></div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">SR</th>
+            <th scope="col">Mukadam Name</th>
+            <th scope="col">Vehicle Number</th>
+            <th scope="col">Karkhana</th>
+            <th scope="col">Date</th>
+            <th scope="col">Taneg</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for t in result %}
+            <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{t.mukadam.name}}</td>
+                <td>{{t.vehicle.vehicle_number}}</td>
+                <td>{{t.karkhana.name}}</td>
+                <td>{{t.date}}</td>
+                <td>{{t.taneg}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+
+<script>
+</script>
+{% endblock content %}

@@ -4,6 +4,7 @@ urlpatterns = [
     path('owner_dashbord/', views.owner_dashbord, name='owner_dashbord'),
     path('add_mukadam/', views.add_mukadam, name='add_mukadam'),
     path('taneg/', views.taneg, name='taneg'),
+    path('report/', views.report, name='report'),
     path('karkhana/', views.karkhana, name='karkhana'),
     path('vehicle/', views.vehicle, name='vehicle'),
-]
+]  
