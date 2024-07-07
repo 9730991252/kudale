@@ -90,6 +90,7 @@ def taneg(request):
             return redirect('/owner/taneg/')
         if 'T_delete'in request.POST:
             tid = request.POST.get('tid')
+            print(tid)
             Taneg.objects.get(id=tid).delete()
             return redirect('/owner/taneg/')
         t = Taneg.objects.all().order_by('-date')
@@ -101,6 +102,7 @@ def taneg(request):
             'v':Vehicle.objects.filter(status=1),
             'k':Karkhana.objects.all(),
             't':t,
+            'delete_pin':'1253'
             }
         return render(request,'owner/taneg.html',context)
     else:

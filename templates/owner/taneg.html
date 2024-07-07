@@ -49,12 +49,49 @@
       <div>{{t.date}}</div>
       <div>Taneg {{t.taneg|floatformat:3}}</div>
     </div>
-    <form method="POST"> {% csrf_token %}
-      <input name="tid" type="hidden" value="{{t.id}}">
-      <button name="T_delete" class="btn btn-danger">Delete</button>
-    </form>
+      <button   type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete{{t.id}}"  class="btn btn-danger">Delete</button>
   </div><br>
+
+
+
+  <div class="modal fade" id="delete{{t.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete conformation</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-danger text-center">
+            <h6>{{t.mukadam.name}}</h6>
+            <h6>Taneg {{t.taneg}}</h6>
+            <h6>{{t.vehicle.owner_name}} {{t.vehicle.vehicle_number}}</h6>
+            <h6>Date {{t.date}}</h6>
+          </div>
+          <form method="POST"> {% csrf_token %}
+            <input name="tid" type="hidden" value="{{t.id}}">
+            <input id="delete_pin" type="hidden" value="{{delete_pin}}">
+            <input type="number" oninput="check_delete_pin('{{t.id}}')" id="pin" class="form-control " placeholder="Enter Secret Delete Pin">
+            <button type="submit" id="conform_btn"  name="T_delete" style="display: none;" class="btn btn-danger mt-2">conform</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
 {% endfor %}
+
+
+
+
+
+
+
 
 
 
@@ -139,6 +176,23 @@
       </div>
     </div>
   </div>
+
+
+
+
+<script>
+  function check_delete_pin(id){
+    pin = document.getElementById('pin').value;
+    delete_pin = document.getElementById('delete_pin').value;
+    if (pin == delete_pin){
+      document.getElementById('conform_btn').style.display='';
+    }
+    if (pin != delete_pin){
+      document.getElementById('conform_btn').style.display='none';
+    }
+
+  }
+</script>
 
 
 {% endblock content %}
