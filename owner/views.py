@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.db.models import Sum, Max
 from datetime import date
 from django.core.paginator import Paginator
+import time
 # Create your views here.
 def owner_dashboard(request):
     if request.session.has_key('owner_mobile'):
@@ -87,6 +88,7 @@ def taneg(request):
                 date=date
                 ).save()
             messages.success(request,"Taneg Add Succesfully")
+            time.sleep(1)
             return redirect('/owner/taneg/')
         if 'T_delete'in request.POST:
             tid = request.POST.get('tid')

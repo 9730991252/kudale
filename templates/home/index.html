@@ -114,9 +114,25 @@
           <Label>Congratulations to all</Label>
     </div>
 </div>
-{% endif %}  
-    
-    
+{% endif %}     
+
+<hr>
+
+
+
+<div class="container" style="background-color: rgb(221, 210, 210);padding: 10px;border-radius: 10px;border: 1px solid black;">
+    <form method="POST">
+        
+        <select name="" id="" class="form-control">
+            <option value="{{m.id}}"><b>कृपया मुकादम निवडा</b></option>
+            {% for m in mukadam %}
+            <option value="{{m.id}}">{{m.name}}</option>
+            {% endfor %}
+        </select>
+        
+    </form>
+
 </div>
 
+</div>
 {% endblock content %}

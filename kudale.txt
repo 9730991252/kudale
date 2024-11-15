@@ -1,75 +1,55 @@
+103.150.136.82
+_______________________________________
 
-
-
-git clone
+cd kudale
+git pull
+source venv/bin/activate
+python3 manage.py makemigrations
+python3 manage.py migrate
+sudo systemctl daemon-reload
+sudo systemctl restart kudale.com.gunicorn
+exit
 
 cd kudale
 git pull
 sudo systemctl daemon-reload
 sudo systemctl restart kudale.com.gunicorn
 exit
-*********************************
-python3 manage.py makemigrations
-python3 manage.py migrate
 
-**********************************
-142.93.213.54
+_______________________________________
 
 
-********** restart ******
+git clone https://github.com/9730991252/kudale.git
 
-
-sudo systemctl daemon-reload
-
-sudo systemctl restart kudale.com.gunicorn
-
-
-
-
-
-
-
-%%%%%%% git clone %%%%%%%%%%%
-https://github.com/9730991252/kudale.git
-
-
-
-cd kudale
-
-
-
+_______________________________________
 ********** Create Virtual env *****
 
 virtualenv venv
-
-
-
 
 ********** Activate Virtual env ****
 
 source venv/bin/activate
 
 
+****************migrations******
+python3 manage.py makemigrations
 
+*********** migrate ********
 
+python3 manage.py migrate
 
 
 ***** install django ******
 
 pip install django
 
-
-
 ******** Install Gunicorn ******
  
 pip install gunicorn
 
-
 *********** Deactivate Virtualenv *****
 
 deactivate
-
-
 
 ************ Create System Socket File for Gunicorn *******
 
@@ -91,10 +71,9 @@ ListenStream=/run/kudale.com.gunicorn.sock
 WantedBy=sockets.target
 
 
-
 ************** Create System Service File for Gunicorn ******
 Syntax:- sudo nano /etc/systemd/system/your_domain.gunicorn.service
-Example:- sudo nano /etc/systemd/system/shaleyparipath.com.gunicorn.service
+Example:- sudo nano /etc/systemd/system/narayaniorder.com.gunicorn.service
 
 cd  /etc/systemd/system/
 
@@ -119,14 +98,13 @@ ExecStart=/root/kudale/venv/bin/gunicorn \
 [Install]
 WantedBy=multi-user.target
 
-
 ----------------------------------------------------------------
 sudo systemctl start kudale.com.gunicorn.socket
 
 sudo systemctl start kudale.com.gunicorn.service
 
------------------------------------------------------------------
 
+-----------------------------------------------------------------
 
 sudo systemctl enable kudale.com.gunicorn.socket
 
@@ -135,20 +113,19 @@ sudo systemctl enable kudale.com.gunicorn.service
 
 -----------------------------------------------------------------------
 
-
 sudo systemctl status kudale.com.gunicorn.socket
 
 sudo systemctl status kudale.com.gunicorn.service
 
-
 -------------------------------------------
 
 sudo systemctl daemon-reload
-
 sudo systemctl restart kudale.com.gunicorn
 
 
+
 --------------------------------
+
 
 
 ****************** Create Virtual Host File ******
@@ -166,7 +143,7 @@ server{
     listen 80;
     listen [::]:80;
 
-    server_name kudale.narayaniorder.com www.kudale.narayaniorder.com;
+    server_name 103.150.136.82 kudale.narayaniorder.com www.kudale.narayaniorder.com;
     client_max_body_size 500M;
 
     location = /favicon.ico { access_log off; log_not_found off; }
@@ -177,11 +154,8 @@ server{
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_pass http://unix:/run/kudale.com.gunicorn.sock;
-    }
-
-    
+    }    
 }
-
 
 -----------------------------------------------------
 
@@ -191,18 +165,13 @@ server{
 sudo ln -s /etc/nginx/sites-available/kudale.com /etc/nginx/sites-enabled/kudale.com
 
 
-
 %%%%%%%%%%%%%%%%%%%%% Check Configuration is Correct or Not %%%%%
 
 sudo nginx -t
 
-
-
 %%%%%%%%%%%% Restart Nginx %%%%%%%%%
 
 sudo service nginx restart
--------------------------------------
-
 
 
 ********** restart ******
@@ -211,15 +180,8 @@ sudo systemctl daemon-reload
 sudo systemctl restart kudale.com.gunicorn
 
 
-
-
 --------------------------------------- ssl ------------------
 
-sudo certbot --nginx -d test.narayaniorder.com -d www.test.narayaniorder.com
+sudo certbot --nginx
 
-
-
-
-
-
-
+sudo certbot --nginx -d janmanasnews.com -d www.janmanasnews.com
