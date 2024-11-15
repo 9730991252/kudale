@@ -164,7 +164,7 @@
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">Taneg</label>
-                  <input step="any"  type="number" name="taneg" class="form-control" id="exampleInputEmail1" required>
+                  <input step="any" oninput="check_zero('taneg')"  type="number" name="taneg" id="taneg" class="form-control"  required>
                 </div>
                 <button type="submit" name="Add_Taneg" class="btn btn-primary">Add</button>
               </form>
@@ -179,7 +179,7 @@
 
 
 
-
+  {% include 'include/check_zero.html' %}
 <script>
   function check_delete_pin(id){
     pin = document.getElementById('pin').value;

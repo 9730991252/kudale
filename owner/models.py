@@ -17,6 +17,8 @@ class Karkhana(models.Model):
 class Vehicle(models.Model):
     owner_name = models.CharField(max_length=200)
     vehicle_number = models.CharField(max_length=100)
+    mobile = models.IntegerField(max_length=100,null=True)
+    pin = models.IntegerField(max_length=100,null=True)
     date = models.DateField(auto_now_add=True ,null=True)
     status = models.IntegerField(max_length=100)
 

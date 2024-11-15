@@ -19,18 +19,34 @@ def index(request):
  
 def login(request):
     if request.session.has_key('owner_mobile'):
-        return redirect('/owner/owner_dashbord/')
+        return redirect('/owner/owner_dashboard/')
     if 'Login' in request.POST:
         num = request.POST.get('number')
         pin = request.POST.get('pin')
-        owner_login={'mobile':'9921856831','pin':'1252'}
+        owner_login={'mobile':'123','pin':'123'}
         if owner_login["mobile"]==num and owner_login["pin"]==pin:
             request.session['owner_mobile'] = request.POST.get('number')
-            return redirect('/owner/owner_dashbord/')
+            return redirect('/owner/owner_dashboard/')
+        m = Mukadam.objects.filter(mobile=num,pin=pin)
+        if m:
+            request.session['mukadam_mobile'] = request.POST.get('number')
+            return redirect('/mukadam/mukadam_dashboard/')
+        v = Vehicle.objects.filter(mobile=num,pin=pin)
+        if v:
+            request.session['vehicle_mobile'] = request.POST.get('number')
+            return redirect('/vehicle/vehicle_dashboard/')
         else:
             messages.warning(request,"please insert correct information or call more suport 9921856831")
     return render(request, 'home/login.html' )
 
 def logout (request):
     del request.session['owner_mobile']
+    return redirect('/')
+
+def mukadam_logout(request):
+    del request.session['mukadam_mobile']
+    return redirect('/')
+
+def vehicle_logout(request):
+    del request.session['vehicle_mobile']
     return redirect('/')

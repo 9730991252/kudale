@@ -5,7 +5,7 @@ from django.db.models import Sum, Max
 from datetime import date
 from django.core.paginator import Paginator
 # Create your views here.
-def owner_dashbord(request):
+def owner_dashboard(request):
     if request.session.has_key('owner_mobile'):
         owner_mobile = request.session['owner_mobile']
         context={}
@@ -18,7 +18,7 @@ def owner_dashbord(request):
             'total_vehicle':Vehicle.objects.all().count(),
             'm':m,
             'tm':tm,
-            'mukadam':Mukadam.objects.all(),
+            'mukadam':Taneg.objects.values('mukadam_id','mukadam__name').annotate(mukadam = Sum('taneg')).order_by('-mukadam'),
             'karkhana':Karkhana.objects.all(),
             'vehicle':Vehicle.objects.all(),
                 }
@@ -138,14 +138,21 @@ def vehicle(request):
         if 'Add_vehicle'in request.POST:
             owner_name = request.POST.get('owner_name')
             vehicle_number = request.POST.get('vehicle_number')
+            mobile = request.POST.get('mobile')
+            pin = request.POST.get('pin')
             print(vehicle_number)
             if Vehicle.objects.filter(vehicle_number=vehicle_number).exists():
                 messages.warning(request,"Vehicle Number Allready Exits")
-                return redirect('/owner/add_mukadam/')
+                return redirect('/owner/vehicle/')
+            elif Vehicle.objects.filter(mobile=mobile).exists():
+                messages.warning(request,"Mobile Allready Exits")
+                return redirect('/owner/vehicle/')
             else:
                 Vehicle(
                     owner_name=owner_name,
                     vehicle_number=vehicle_number,
+                    mobile = mobile,
+                    pin = pin,
                     status=1
                     ).save()
                 messages.success(request,"Vehicle Added Succesfully")
@@ -189,7 +196,7 @@ def report(request):
             if mid == '' and vid == '' and kid == '':
                 messages.warning(request,"Please select Mukadam or Vehicle anyone")
             if mid == '0':
-                result = Taneg.objects.filter(date__gte=from_date,date__lte=to_date).order_by('-date')
+                result = Taneg.objects.filter(date__gte=from_date,date__lte=to_date).order_by('-taneg')
                 total = result.aggregate(Sum('taneg'))
                 total = total['taneg__sum']
             elif mid:

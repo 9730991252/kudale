@@ -156,8 +156,8 @@
         {% for m in mukadam %}
             <div style="display: flex;gap: 10px;justify-content: start;padding: 10px;border-bottom: 1px solid rgb(255, 175, 71);"">
                 <div>{{forloop.counter}}</div>
-                <div>{{m.name}}</div>
-                <div>T {% mukadam_taneg m.id as n %}{{n|floatformat:3}}</div>
+                <div>{{m.mukadam__name}}</div>
+                <div>T {{m.mukadam}}</div>
             </div>
         {% endfor %}
     </div>

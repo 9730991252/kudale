@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'home',
     'owner',
     'ajex',
+    'mukadam',
+    'vehicle',
 ]
 
 MIDDLEWARE = [

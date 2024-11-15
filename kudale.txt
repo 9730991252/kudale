@@ -1,6 +1,9 @@
-9921856831
-***********************************
 
+
+
+git clone
+
+cd kudale
 git pull
 sudo systemctl daemon-reload
 sudo systemctl restart kudale.com.gunicorn
@@ -163,7 +166,7 @@ server{
     listen 80;
     listen [::]:80;
 
-    server_name narayaniorder.com www.narayaniorder.com;
+    server_name kudale.narayaniorder.com www.kudale.narayaniorder.com;
     client_max_body_size 500M;
 
     location = /favicon.ico { access_log off; log_not_found off; }
@@ -212,7 +215,7 @@ sudo systemctl restart kudale.com.gunicorn
 
 --------------------------------------- ssl ------------------
 
-sudo certbot --nginx -d narayaniorder.com -d www.narayaniorder.com
+sudo certbot --nginx -d test.narayaniorder.com -d www.test.narayaniorder.com
 
 
 
