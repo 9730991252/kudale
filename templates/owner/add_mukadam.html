@@ -58,11 +58,6 @@
                   <label for="exampleInputEmail1" class="form-label">Mobile</label>
                   <input type="number" name="mobile" placeholder="Mobile" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                 </div>
-                
-                <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">Secret Pin</label>
-                  <input type="number" name="pin" placeholder="Secret Pin" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                </div>
                 <button type="submit" name="Add_Mukadam" class="btn btn-primary">Add</button>
               </form>
 
@@ -80,7 +75,6 @@
         <div>{{m.name}}</div>  
         <div class="mp">
             <div>Mobile {{m.mobile}}</div>
-            <div>Pin {{m.pin}}</div>
         </div>
         <div>
             <form class="" method="POST">{% csrf_token %}

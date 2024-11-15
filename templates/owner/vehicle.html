@@ -62,11 +62,7 @@
                   <label for="exampleInputEmail1" class="form-label">Mobile</label>
                   <input type="number" name="mobile" placeholder="Mobile" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                 </div>
-                
-                <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">Secret Pin</label>
-                  <input type="number" name="pin" placeholder="Secret Pin" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                </div>
+
 
                 <button type="submit" name="Add_vehicle" class="btn btn-primary">Add</button>
               </form>
@@ -88,7 +84,6 @@
         </div>
         <div class="mp">
           <div>Mo {{v.mobile}}</div>
-          <div>Pin {{v.pin}}</div>
             <form class="" method="POST">{% csrf_token %}
                 {% if v.status == 1 %}
                     <button class="btn btn-success" type="submit" name="Active">Active<input type="hidden" name="id" value="{{v.id}}"></button>

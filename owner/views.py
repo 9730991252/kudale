@@ -35,7 +35,6 @@ def add_mukadam(request):
         if 'Add_Mukadam'in request.POST:
             name = request.POST.get('name')
             mobile = request.POST.get('mobile')
-            pin = request.POST.get('pin')
             if Mukadam.objects.filter(mobile=mobile).exists():
                 messages.warning(request,"Mobile Allready Exits")
                 return redirect('/owner/add_mukadam/')
@@ -43,7 +42,6 @@ def add_mukadam(request):
                 Mukadam(
                     name=name,
                     mobile=mobile,
-                    pin=pin,
                     status=1
                     ).save()
                 messages.success(request,"Mukadam Add Succesfully")
@@ -146,15 +144,11 @@ def vehicle(request):
             if Vehicle.objects.filter(vehicle_number=vehicle_number).exists():
                 messages.warning(request,"Vehicle Number Allready Exits")
                 return redirect('/owner/vehicle/')
-            elif Vehicle.objects.filter(mobile=mobile).exists():
-                messages.warning(request,"Mobile Allready Exits")
-                return redirect('/owner/vehicle/')
             else:
                 Vehicle(
                     owner_name=owner_name,
                     vehicle_number=vehicle_number,
                     mobile = mobile,
-                    pin = pin,
                     status=1
                     ).save()
                 messages.success(request,"Vehicle Added Succesfully")
